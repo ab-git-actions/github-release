@@ -6,6 +6,9 @@ on:
       - closed
   workflow_dispatch: # Allow manual triggers
 
+permissions:
+  contents: write
+
 jobs:
   release-github-action:
     if: github.event.pull_request.merged == true
