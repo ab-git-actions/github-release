@@ -1,0 +1,2 @@
+- docker build -t github-release:latest .
+- docker run --name githubrelease -d github-release:latest
