@@ -38,11 +38,16 @@ runs:
         pip install PyGithub colorlog
 
     - name: Create Git Tag and Release
+      id: release_step
       run: |
         python main.py
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
-        VERSION: ${{ steps.gitversion.outputs.majorMinorPatch }}
+        VERSION: ${{ steps.gitversion.outputs.semVer }}
         GITHUB_REPOSITORY: ${{ github.repository }}
         RELEASE_MESSAGE: ${{ github.event.pull_request.html_url }}
+
+    - name: Release URL
+      shell: bash
+      run: echo "The release URL is ${{ steps.release_step.outputs.release_url }}"
