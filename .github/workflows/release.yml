@@ -21,5 +21,3 @@ jobs:
         id: release_step
         uses: ./  # This uses the local action defined in the repository
 
-      - name: Release URL
-        run: echo "The release URL is ${{ steps.release_step.outputs.release_url }}"
