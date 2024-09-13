@@ -17,5 +17,5 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      - name: Release github action
+      - name: Release create tag github action
         uses: ./  # This uses the local action defined in the repository
