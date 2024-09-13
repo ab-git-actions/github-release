@@ -20,4 +20,5 @@ jobs:
       - name: Release create tag github action
         id: release_step
         uses: ./  # This uses the local action defined in the repository
-
+#        with:
+#          github_token: '${{ secrets.GH_TOKEN }}'

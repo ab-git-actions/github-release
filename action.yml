@@ -48,7 +48,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         VERSION: ${{ steps.gitversion.outputs.semVer }}
         GITHUB_REPOSITORY: ${{ github.repository }}
-        RELEASE_MESSAGE: ${{ github.event.pull_request.html_url }}
+        RELEASE_MESSAGE: "${{ github.event.pull_request.title }} - ${{ github.event.pull_request.html_url }}"
 
     - name: Release URL
       shell: bash
