@@ -1,6 +1,8 @@
 import os
 import json
 from github import Github
+from github.GithubException import UnknownObjectException
+
 
 # # Load GitVersion output
 # with open('gitversion.json', 'r') as f:
