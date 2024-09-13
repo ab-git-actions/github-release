@@ -6,6 +6,9 @@ inputs:
     description: 'GitHub token'
     default: ${{ github.token }}
     required: false
+  release_message:
+    description: "Note-worthy description of changes in release"
+    required: false
 outputs:
   release_url:
     description: "URL to the Release HTML Page"
@@ -42,3 +45,4 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         VERSION: ${{ steps.gitversion.outputs.majorMinorPatch }}
         GITHUB_REPOSITORY: ${{ github.repository }}
+        RELEASE_MESSAGE: ${{ github.event.pull_request.html_url }}

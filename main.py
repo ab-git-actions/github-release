@@ -20,6 +20,11 @@ github_repository = os.environ.get('GITHUB_REPOSITORY')
 if not github_repository:
     raise ValueError('GITHUB_REPOSITORY environment variable not set')
 
+release_message = os.environ.get('RELEASE_MESSAGE')
+if not github_repository:
+    raise ValueError('RELEASE_MESSAGE environment variable not set')
+
+pull_request_link = os.getenv("")
 # Initialize PyGithub
 g = Github(github_token)
 repo = g.get_repo(github_repository)
@@ -35,17 +40,17 @@ def create_release():
     try:
         # Check if the tag already exists
         repo.get_git_ref(f"tags/{tag_name}")
-        logger.warning(f"😅Tag {tag_name} already exists.")
+        logger.warning(f"😅 Tag {tag_name} already exists. It will not be recreated.")
     except UnknownObjectException:
-
-        logger.debug(f"😔Tag {tag_name} not found.")
+        # If the tag doesn't exist, create it
+        logger.debug(f"😔 Tag {tag_name} not found. Proceeding to create the tag.")
 
         # Create the release
         git_release = repo.create_git_tag_and_release(
             tag=tag_name,
             tag_message=f'Release {tag_name}',
             release_name=f'Release {tag_name}',
-            release_message='Description of the release',
+            release_message=f'{release_message}',
             object=commit_sha,
             type='commit',
             draft=False,
@@ -53,15 +58,6 @@ def create_release():
         )
         logger.info(f"🎉 Release created {git_release.html_url}")
         set_output("release_url", git_release.html_url)
-
-    # Update or create the 'latest' tag
-    try:
-        latest_ref = repo.get_git_ref('tags/latest')
-        latest_ref.edit(commit_sha, force=True)
-        logger.info("😃 Updated 'latest' tag.")
-    except:
-        repo.create_git_ref(ref='refs/tags/latest', sha=commit_sha)
-        logger.info("🎉 Release created")
 
 
 def set_output(name, value):
