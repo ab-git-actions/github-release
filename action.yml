@@ -29,7 +29,9 @@ runs:
       id: gitversion
       uses: gittools/actions/gitversion/execute@v3.0.0
       with:
-        useConfigFile: false
+        useConfigFile: true
+        disableCache: true
+        configFilePath: GitVersion.yml
       
     - name: Install Python dependencies
       shell: bash
