@@ -44,7 +44,8 @@ try:
     # Check if the tag already exists
     repo.get_git_ref(f"tags/{tag_name}")
     print(f"Tag {tag_name} already exists.")
-except:
+except UnknownObjectException:
+    print(f"Tag {tag_name} not found.")
 
     # Create the release
     repo.create_git_tag_and_release(
