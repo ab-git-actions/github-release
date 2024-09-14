@@ -53,7 +53,7 @@ runs:
     - name: Create Git Tag and Release
       id: release_step
       run: |
-        python main.py
+        python $GITHUB_ACTION_PATH/main.py
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
